@@ -1,4 +1,4 @@
-import { User } from '../types';
+import { RegisterUser, User } from '../types';
 import axiosClient from './axios-client';
 
 export const userApi = {
@@ -10,8 +10,8 @@ export const userApi = {
         password,
       },
       {
-        withCredentials: true
-      }
+        withCredentials: true,
+      },
     );
   },
   getUsers: async () => {
@@ -21,5 +21,11 @@ export const userApi = {
     return axiosClient.get<never, User>('/authentication/refresh', {
       withCredentials: true,
     });
+  },
+  register: async (user: RegisterUser) => {
+    return axiosClient.post<RegisterUser, Omit<RegisterUser, 'password'>>(
+      '/authentication/register',
+      user,
+    );
   },
 };

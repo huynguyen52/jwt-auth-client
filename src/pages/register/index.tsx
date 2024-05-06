@@ -1,26 +1,23 @@
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { userApi } from '../../api/users-api';
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+export default function Register() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { mutate } = useMutation({
-    mutationFn: userApi.login,
-    onSuccess: (data) => {
-      dispatch(login(data));
-      navigate('/users');
+    mutationFn: userApi.register,
+    onSuccess: () => {
+      navigate('/login');
     },
   });
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      mutate({ email, password });
+      mutate({ name, email, password });
     } catch (error) {
       console.error(error);
     }
@@ -28,26 +25,29 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h3>Register</h3>
       <div>
         <input
-          value={email}
-          name="email"
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="text"
           placeholder="Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          name="password"
-          placeholder="Password"
         />
-        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleRegister}>Register</button>
       </div>
-      <Link to="/register">Register</Link>
+      <Link to="/login">Login</Link>
     </div>
   );
-};
-
-export default Login;
+}

@@ -4,3 +4,9 @@ export type User = {
   name: string;
   accessToken: string;
 };
+
+export type RegisterUser = {
+  email: string;
+  name: string;
+  password: string;
+};

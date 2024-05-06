@@ -7,14 +7,15 @@ import { store } from './store.ts';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Login from './pages/login/index.tsx';
 import Users from './pages/users/index.tsx';
+import Register from './pages/register/index.tsx';
 
 // Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: false
-    }
-  }
+      retry: false,
+    },
+  },
 });
 
 // Create a root loader
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: '/users',
         element: <Users />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
       },
     ],
   },
