@@ -9,7 +9,13 @@ import Login from './pages/login/index.tsx';
 import Users from './pages/users/index.tsx';
 
 // Create a client
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false
+    }
+  }
+});
 
 // Create a root loader
 const router = createBrowserRouter([

@@ -9,6 +9,9 @@ export const userApi = {
         email,
         password,
       },
+      {
+        withCredentials: true
+      }
     );
   },
   getUsers: async () => {
