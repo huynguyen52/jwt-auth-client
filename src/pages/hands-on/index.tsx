@@ -1,5 +1,4 @@
-import BasicFormik from '../../components/basic-formik';
-import BasicPopover from '../../components/basic-popover';
+import { BasicFormik } from '../../components';
 
 export default function HandsOn() {
   return (
@@ -8,7 +7,6 @@ export default function HandsOn() {
       <p>
         This is a hands-on page. You can use this page to test your components.
       </p>
-      <BasicPopover />
       <BasicFormik />
     </div>
   );

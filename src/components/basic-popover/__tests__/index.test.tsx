@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import BasicPopover from '../basic-popover';
 import '@testing-library/jest-dom';
+import { BasicPopover } from '..';
 
 describe('BasicPopover Component', () => {
   test('should not display popover content initially', () => {

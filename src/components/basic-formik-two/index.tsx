@@ -1,13 +1,13 @@
 import { Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { useAppDispatch } from '../hooks';
-import { login } from '../redux/authSlice';
+import { useAppDispatch } from '../../hooks';
+import { login } from '../../redux/authSlice';
 
 type BasicFormikTwoProps = {
   onSubmit: (values: { email: string; password: string }) => void;
 };
 
-export default function BasicFormikTwo({ onSubmit }: BasicFormikTwoProps) {
+export function BasicFormikTwo({ onSubmit }: BasicFormikTwoProps) {
   const dispatch = useAppDispatch();
 
   const formik = useFormik({

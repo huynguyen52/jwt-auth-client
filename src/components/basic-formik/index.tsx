@@ -1,17 +1,19 @@
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { MuiSelect } from '../mui';
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid email address').required('Required'),
   password: Yup.string().required('Required'),
 });
 
-export default function BasicFormik() {
+export function BasicFormik() {
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
+      selectOne: '',
     },
     validationSchema,
     onSubmit: (values) => {
@@ -19,8 +21,18 @@ export default function BasicFormik() {
     },
   });
 
+  const selectOneOptions = [
+    { id: '1', title: 'Option 1' },
+    { id: '2', title: 'Option 2' },
+  ];
+
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <Box
+      component="form"
+      display="flex"
+      flexDirection="column"
+      onSubmit={formik.handleSubmit}
+    >
       <TextField
         type="text"
         name="email"
@@ -39,7 +51,13 @@ export default function BasicFormik() {
         error={formik.touched.password && Boolean(formik.errors.password)}
         helperText={formik.touched.password && formik.errors.password}
       />
+      <MuiSelect
+        name="selectOne"
+        value={formik.values.selectOne}
+        onChange={formik.handleChange}
+        options={selectOneOptions}
+      />
       <Button type="submit">Submit</Button>
-    </form>
+    </Box>
   );
 }

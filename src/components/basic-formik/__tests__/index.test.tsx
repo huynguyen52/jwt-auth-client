@@ -1,6 +1,12 @@
-import { render, fireEvent, waitFor, act } from '@testing-library/react';
-import BasicFormik from '../basic-formik';
 import '@testing-library/jest-dom';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import { BasicFormik } from '..';
 
 describe('BasicFormik Component', () => {
   it('renders without crashing', () => {
@@ -45,5 +51,19 @@ describe('BasicFormik Component', () => {
     await waitFor(() => {
       expect(getByText('Required')).toBeInTheDocument();
     });
+  });
+  it('updates formik values when an option is selected in MuiSelect', async () => {
+    const { getByText, getAllByRole } = render(<BasicFormik />);
+    // Simulate selecting an option in MuiSelect
+    const selectButton = screen.getByRole('combobox', { name: 'selectOne' });
+    fireEvent.mouseDown(selectButton);
+    await act(async () => {
+      const option = getAllByRole('option');
+      fireEvent.click(option[0]);
+    });
+
+    // Assert that the formik values have been updated
+    const selectInput = getByText('Option 1');
+    expect(selectInput).toBeInTheDocument();
   });
 });

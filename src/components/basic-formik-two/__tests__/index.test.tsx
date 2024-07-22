@@ -1,8 +1,8 @@
 import { fireEvent, waitFor, act } from '@testing-library/react';
-import BasicFormikTwo from '../basic-formik-two';
 import '@testing-library/jest-dom';
-import { mockStore, render } from '../../utils/test-utils';
-import { login } from '../../redux/authSlice';
+import { BasicFormikTwo } from '..';
+import { render, mockStore } from '../../../utils/test-utils';
+import { login } from '../../../redux/authSlice';
 
 const onSubmit = jest.fn();
 
