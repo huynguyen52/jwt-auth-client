@@ -66,4 +66,20 @@ describe('BasicFormik Component', () => {
     const selectInput = getByText('Option 1');
     expect(selectInput).toBeInTheDocument();
   });
+  it('updates formik values when an option is selected in MuiAutoComplete', async () => {
+    const { getAllByRole } = render(<BasicFormik />);
+    // Open the autocomplete dropdown
+    fireEvent.mouseDown(getAllByRole('combobox')[1]);
+    await act(async () => {
+      // Select the first option from the autocomplete dropdown
+      const option = getAllByRole('option');
+      fireEvent.click(option[0]);
+    });
+
+    await waitFor(() => {
+      // Assert that the formik values have been updated
+      const autocompleteInput = getAllByRole('combobox')[1] as HTMLInputElement;
+      expect(autocompleteInput.value).toBe('Option 3');
+    });
+  });
 });

@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { MuiSelect } from '../mui';
+import { MuiAutoComplete, MuiSelect } from '../mui';
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid email address').required('Required'),
@@ -14,6 +14,7 @@ export function BasicFormik() {
       email: '',
       password: '',
       selectOne: '',
+      autocomplete: null,
     },
     validationSchema,
     onSubmit: (values) => {
@@ -26,6 +27,12 @@ export function BasicFormik() {
     { id: '2', title: 'Option 2' },
   ];
 
+  const selectTwoOptions = [
+    { label: 'Option 3', value: '1' },
+    { label: 'Option 4', value: '2' },
+    { label: 'Option 5', value: '3' },
+  ];
+
   return (
     <Box
       component="form"
@@ -36,6 +43,7 @@ export function BasicFormik() {
       <TextField
         type="text"
         name="email"
+        autoComplete="email"
         inputProps={{ 'aria-label': 'email' }}
         onChange={formik.handleChange}
         value={formik.values.email}
@@ -43,6 +51,7 @@ export function BasicFormik() {
         helperText={formik.touched.email && formik.errors.email}
       />
       <TextField
+        autoComplete="current-password"
         type="password"
         name="password"
         inputProps={{ 'aria-label': 'password' }}
@@ -56,6 +65,13 @@ export function BasicFormik() {
         value={formik.values.selectOne}
         onChange={formik.handleChange}
         options={selectOneOptions}
+      />
+      <MuiAutoComplete
+        label="Autocomplete"
+        name="autocomplete"
+        options={selectTwoOptions}
+        value={formik.values.autocomplete}
+        onChange={(value) => formik.setFieldValue('autocomplete', value)}
       />
       <Button type="submit">Submit</Button>
     </Box>
